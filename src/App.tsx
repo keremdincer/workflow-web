@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from '@material-ui/core'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React from 'react'
+import Layout from './components/Layout'
+import { LoginPage } from './Login/LoginPage'
+import { HomePage } from './Home/HomePage'
+import { AuthProvider } from './contexts/AuthContext'
+import { PrivateRoute } from './components/PrivateRoute'
 
-function App() {
+export const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthProvider>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <PrivateRoute path="/" exact component={HomePage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Layout />
+        </Switch>
+      </Router>
+    </AuthProvider>
+  )
 }
-
-export default App;
