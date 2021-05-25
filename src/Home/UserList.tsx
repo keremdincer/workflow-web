@@ -48,7 +48,6 @@ export const UserList: React.FC = () => {
   }
 
   const { users } = data
-  console.log(users)
 
   return (
     <TableContainer component={Paper}>
@@ -73,7 +72,11 @@ export const UserList: React.FC = () => {
               <TableCell align="left">{user.lastName}</TableCell>
               <TableCell align="left">
                 {user.roles.map((role: any) => (
-                  <Chip label={role.label} className={classes.chip} />
+                  <Chip
+                    key={role.id}
+                    label={role.label}
+                    className={classes.chip}
+                  />
                 ))}
               </TableCell>
             </TableRow>

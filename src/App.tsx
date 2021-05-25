@@ -1,7 +1,6 @@
 import { CssBaseline } from '@material-ui/core'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React from 'react'
-import Layout from './components/Layout'
 import { LoginPage } from './Login/LoginPage'
 import { HomePage } from './Home/HomePage'
 import { AuthProvider } from './contexts/AuthContext'
@@ -15,7 +14,6 @@ export const App: React.FC = () => {
         <Switch>
           <PrivateRoute path="/" exact component={HomePage} />
           <Route path="/login" exact component={LoginPage} />
-          <Layout />
         </Switch>
       </Router>
     </AuthProvider>
