@@ -1,71 +1,41 @@
-import React, { Fragment, useState } from 'react'
-import {
-  AppBar,
-  Avatar,
-  createStyles,
-  IconButton,
-  makeStyles,
-  Tab,
-  Tabs,
-  Theme,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-import { useAuth } from '../contexts/AuthContext'
+import React, { useState } from 'react'
+import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Sidebar } from './Sidebar'
+import { Navbar } from './Navbar'
+
+export const Layout: React.FC = ({ children }) => {
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className={classes.root}>
+      <Navbar open={open} setOpen={setOpen} />
+      <Sidebar open={open} setOpen={setOpen} />
+
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer}></div>
+        {children}
+      </main>
+    </div>
+  )
+}
+
+export const DRAWER_WIDTH = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      display: 'flex',
     },
-    title: {
+    content: {
       flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
     },
-    avatar: {
-      marginRight: theme.spacing(2),
+    appBarSpacer: theme.mixins.toolbar,
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
     },
   })
 )
-
-function a11yProps(index: any) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  }
-}
-
-const Layout: React.FC = ({ children }) => {
-  const classes = useStyles()
-  const [value, setValue] = useState(0)
-  const auth = useAuth()
-
-  return (
-    <Fragment>
-      <AppBar position="static">
-        <Toolbar>
-          <Avatar className={classes.avatar}>
-            {auth.user?.firstName.charAt(0)}
-            {auth.user?.lastName.charAt(0)}
-          </Avatar>
-          <Typography variant="h6" className={classes.title}>
-            {auth.user?.firstName + ' ' + auth.user?.lastName}
-          </Typography>
-
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-
-        <Toolbar>
-          <Tabs value={value} onChange={(_event, number) => setValue(number)}>
-            <Tab label="Kullanıcılar" {...a11yProps(1)}></Tab>
-          </Tabs>
-        </Toolbar>
-      </AppBar>
-      <div>{children}</div>
-    </Fragment>
-  )
-}
-
-export default Layout
