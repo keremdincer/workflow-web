@@ -5,7 +5,6 @@ import {
   IconButton,
   makeStyles,
   Toolbar,
-  Typography,
   Theme,
 } from '@material-ui/core'
 import clsx from 'clsx'
@@ -24,10 +23,7 @@ export const Navbar: React.FC<Props> = ({ open, setOpen }) => {
   const classes = useStyles()
 
   return (
-    <AppBar
-      position="absolute"
-      className={clsx(classes.appBar, open && classes.appBarShift)}
-    >
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <IconButton
           edge="start"
@@ -39,23 +35,9 @@ export const Navbar: React.FC<Props> = ({ open, setOpen }) => {
           <MenuIcon />
         </IconButton>
 
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.title}
-        >
-          Workflow
-        </Typography>
+        <div className={classes.spacer} />
 
         <UserButton />
-
-        {/* <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton> */}
       </Toolbar>
     </AppBar>
   )
@@ -64,11 +46,10 @@ export const Navbar: React.FC<Props> = ({ open, setOpen }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${DRAWER_WIDTH}px)`,
+        marginLeft: DRAWER_WIDTH,
+      },
     },
 
     appBarShift: {
@@ -81,18 +62,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
+      paddingRight: theme.spacing(2), // keep right padding when drawer closed
     },
 
     menuButton: {
-      marginRight: 36,
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
     },
 
     menuButtonHidden: {
       display: 'none',
     },
 
-    title: {
+    spacer: {
       flexGrow: 1,
     },
   })
