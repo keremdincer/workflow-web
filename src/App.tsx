@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { PrivateRoute } from './components/PrivateRoute'
 import { ProjectsPage } from './Projects/ProjectsPage'
 import { CorporationsPage } from './Corporations/CorporationsPage'
+import { AdminPage } from './Admin/AdminPage'
 
 export const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const App: React.FC = () => {
             exact
             component={CorporationsPage}
           />
+          <PrivateRoute path="/admin" exact component={AdminPage} />
           <Route path="/login" exact component={LoginPage} />
         </Switch>
       </Router>

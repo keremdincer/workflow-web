@@ -6,7 +6,7 @@ import {
   SvgIconTypeMap,
 } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-// import AdminIcon from '@material-ui/icons/Settings'
+import AdminIcon from '@material-ui/icons/Settings'
 import ProjectIcon from '@material-ui/icons/Work'
 import BusinessIcon from '@material-ui/icons/Business'
 // import { useAuth } from '../contexts/AuthContext'
@@ -22,7 +22,7 @@ interface SidebarLink {
 
 const links: SidebarLink[] = [
   { key: 'link-dashboard', path: '/', label: 'Anasayfa', icon: DashboardIcon },
-  // { key: 'link-admin', path: '/admin', label: 'Yönetim', icon: AdminIcon },
+  { key: 'link-admin', path: '/admin', label: 'Yönetim', icon: AdminIcon },
   {
     key: 'link-projects',
     path: '/projects',
